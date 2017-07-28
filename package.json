@@ -1,0 +1,16 @@
+{
+  "name": "flashcardapp",
+  "version": "1.0.0",
+  "description": "Flash card application for studying",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Fun",
+    "Study",
+    "Treehouse"
+  ],
+  "author": "Paul Milbank",
+  "license": "MIT"
+}
