@@ -4,7 +4,8 @@
   "description": "Flash card application for studying",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "dev": "nodemon"
   },
   "keywords": [
     "Fun",
