@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  section#content
+    h2 Welcome Student
+    p paragraph
+    
+    if names
+      p
+        table(style="width:100%")
+          tr
+            th First Name 
+            th Last Name
+          each name in names
+            tr
+              td= name.first
+              td= name.last
