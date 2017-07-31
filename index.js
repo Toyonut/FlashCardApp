@@ -1,14 +1,8 @@
 const settings = require('./settings/settings.json')
 const express = require('express')
+const bodyParser = require('body-parser')
 
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'blue',
-  'purple'
-]
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const names = [
   {first: 'Bill',
@@ -28,7 +22,7 @@ const app = express()
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
-  res.render('index', {colors})
+  res.render('index')
 })
 
 app.get('/card', (req, res) => {
@@ -40,6 +34,18 @@ app.get('/card', (req, res) => {
 
 app.get('/sandbox', (req, res) => {
   res.render('sandbox', {names})
+})
+
+app.get('/hello', (req, res) => {
+  res.render('hello', {'name': 'Student'})
+})
+
+app.post('/hello', urlencodedParser, (req, res) => {
+  if (req.body) {
+    console.dir(req.body.username)
+    res.status(200)
+    res.render('hello', {'name': req.body.username})
+  }
 })
 
 app.listen(settings.port, () => {
