@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  section#content
+    h2= `Welcome ${name}`
+    form(action='/hello', method='POST')
+      label What is your name?<br>
+        input(name='username', type='text')
+        <br>
+        <br>
+        input(type='submit', value='submit')
