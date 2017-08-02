@@ -1,28 +1,22 @@
 const settings = require('./settings/settings.json')
 const express = require('express')
 const bodyParser = require('body-parser')
-
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-const names = [
-  {first: 'Bill',
-    last: 'Gates'},
-  {first: 'Ted',
-    last: 'Bundy'},
-  {first: 'Bill',
-    last: 'Nye'},
-  {first: 'William',
-    last: 'Shatner'},
-  {first: 'Spider',
-    last: 'man'}
-]
+const cookieParser = require('cookie-parser')
 
 const app = express()
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
-  res.render('index')
+  const name = req.cookies.username
+  if (name) {
+    res.render('index', {name})
+  } else {
+    res.redirect('/hello')
+  }
 })
 
 app.get('/card', (req, res) => {
@@ -32,20 +26,25 @@ app.get('/card', (req, res) => {
   })
 })
 
-app.get('/sandbox', (req, res) => {
-  res.render('sandbox', {names})
-})
-
 app.get('/hello', (req, res) => {
-  res.render('hello', {'name': 'Student'})
+  const name = req.cookies.username
+  if (name) {
+    res.redirect('/')
+  } else {
+    res.render('hello')
+  }
 })
 
-app.post('/hello', urlencodedParser, (req, res) => {
+app.post('/hello', (req, res) => {
   if (req.body) {
-    console.dir(req.body.username)
-    res.status(200)
-    res.render('hello', {'name': req.body.username})
+    res.cookie('username', req.body.username)
+    res.redirect('/')
   }
+})
+
+app.post('/goodbye', (req, res) => {
+  res.clearCookie('username')
+  res.redirect('/hello')
 })
 
 app.listen(settings.port, () => {
