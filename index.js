@@ -47,6 +47,19 @@ app.post('/goodbye', (req, res) => {
   res.redirect('/hello')
 })
 
+app.use((req, res, next) => {
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(err.status)
+    res.render('error', {err})
+  }
+})
+
 app.listen(settings.port, () => {
   console.log(`Express is running on port ${settings.port}`)
 })
