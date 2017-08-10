@@ -7,13 +7,18 @@ router.get('/:id', (req, res) => {
   const name = req.cookies.username
   const { id } = req.params
   const { side } = req.query
-  const text = cards[id][side] // this combines the id number for the Q with the side (question or answer). depending on side will set value of text.
+  const text = cards[id][side] // this combines the id param query (question or answer) to set value of text to Q or A.
   const { hint } = cards[id]
-  const templateData = { text }
+  const templateData = { id, text }
 
   if (name) {
     if (side === 'question') {
       templateData.hint = hint
+      templateData.sideToShow = 'answer'
+      templateData.sideToShowDisplay = 'Answer'
+    } else if (side === 'answer') {
+      templateData.sideToShow = 'question'
+      templateData.sideToShowDisplay = 'Question'
     }
     res.render('card', templateData)
   } else {
