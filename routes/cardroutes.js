@@ -5,12 +5,17 @@ const { cards } = data
 
 router.get('/:id', (req, res) => {
   const name = req.cookies.username
-  const cardNum = req.params.id
+  const { id } = req.params
+  const { side } = req.query
+  const text = cards[id][side]
+  const { hint } = cards[id]
+  const templateData = { text }
+
   if (name) {
-    res.render('card', {
-      prompt: cards[cardNum].question,
-      hint: cards[cardNum].hint
-    })
+    if (side === 'question') {
+      templateData.hint = hint
+    }
+    res.render('card', templateData)
   } else {
     res.redirect('/hello')
   }

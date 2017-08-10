@@ -2,10 +2,7 @@ extends layout
 
 block content
   section#content
-    h2= prompt
+    h2= text
     if hint
       p
         i= `Hint: ${hint}`
-    else
-      p
-        i There is no hint.
