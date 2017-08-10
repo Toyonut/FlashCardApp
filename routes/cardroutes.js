@@ -3,13 +3,25 @@ const router = express.Router()
 const { data } = require('../data/cards.json')
 const { cards } = data
 
+router.get('/', (req, res) => {
+  let questionNum = cards.length
+  let randomCard = Math.floor(Math.random() * questionNum)
+  res.redirect(`/cards/${randomCard}?side=question`)
+})
+
 router.get('/:id', (req, res) => {
   const name = req.cookies.username
   const { id } = req.params
-  const { side } = req.query
+  let { side } = req.query
   const text = cards[id][side] // this combines the id param query (question or answer) to set value of text to Q or A.
   const { hint } = cards[id]
   const templateData = { id, text }
+
+  if (side === null || side === undefined) {
+    res.redirect(`/cards/${id}?side=question`)
+    return // need to return here else express tries to send the render too leading to an error.
+    // Error: Can't set headers after they are sent. redir sends 302, render tries to send 200.
+  }
 
   if (name) {
     if (side === 'question') {
