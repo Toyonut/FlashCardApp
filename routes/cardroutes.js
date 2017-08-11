@@ -25,6 +25,7 @@ router.get('/:id', (req, res) => {
   }
 
   if (name) {
+    templateData.name = name
     if (side === 'question') {
       templateData.hint = hint
       templateData.sideToShow = 'answer'
