@@ -1,13 +1,7 @@
 extends layout
 
 block content
-  section#content
-    if name
-      h2= `Welcome ${name}`
-      form(action='/goodbye', method='post')
-        label See you later.<br>
-        input(type='submit', value='Goodbye')
-    else
-      h2 Welcome Student
-    p paragraph
+  section#content      
+  h3 Pick a card
+  a(href= `/cards`) New Random Card
     
