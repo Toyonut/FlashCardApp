@@ -17,7 +17,8 @@ router.get('/:id', (req, res) => {
   const { hint } = cards[id]
   const templateData = { id, text }
 
-  if (side === null || side === undefined) {
+  const allowedValues = ['question', 'answer']
+  if (allowedValues.includes(side) === false) {
     res.redirect(`/cards/${id}?side=question`)
     return // need to return here else express tries to send the render too leading to an error.
     // Error: Can't set headers after they are sent. redir sends 302, render tries to send 200.
