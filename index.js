@@ -12,6 +12,7 @@ app.use(cookieParser())
 
 app.use(mainRoutes)
 app.use('/cards', cardRoutes)
+app.use('/static', express.static('public'))
 
 app.set('view engine', 'pug')
 
