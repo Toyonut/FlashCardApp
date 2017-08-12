@@ -1,7 +1,13 @@
 extends layout
 
 block content
-  section#content
-    h1= `Something went wrong: ${err.message}`
-    h2= `status: ${err.status}`
-    pre= `Stacktrace: ${err.stack}`
+  header
+    img(src='/static/img/logo.png')
+    p An app to help you study
+  section.desk
+    h1= `Something went wrong: ${err.message}.` 
+    h1= `Status: ${err.status}`
+    img.desk-items(src='/static/img/desk.svg')
+    a.button-primary-small(href='/hello') Go Home
+    .paper
+      pre.stack-trace= `Stacktrace: ${err.stack}`
