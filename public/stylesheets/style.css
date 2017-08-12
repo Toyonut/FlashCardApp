@@ -231,6 +231,10 @@ input {
   padding: 8% 5%;
 }
 
+#hint {
+  padding-bottom: 1em
+}
+
 #content button {
   padding: 8px 10px;
   font-size: .8em;
