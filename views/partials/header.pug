@@ -1,9 +1,12 @@
 header
-  h1 Flash Cards
+  img(src='/static/img/logo.png')
+  p An app to help you study
   if name
-    h2= `Welcome ${name}`
-    form(action='/goodbye', method='post')
-      label See you later.<br>
-      input(type='submit', value='Goodbye')
+    section.namecard
+      .namecard-hello
+        p.namecard-greeting= `Welcome ${name}`
+        form.namecard-exit(action='/goodbye', method='POST')
+          button(type='submit')
+            img(src='/static/img/close.svg')
   else
     h2 Welcome Student    
